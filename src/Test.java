@@ -4,6 +4,8 @@ import java.io.InputStream;
 import java.util.Scanner;
 
 public class Test {
+    static int count = 0;
+    static Product carts[] = new Product[3];//创建购物车（用数组模拟）
     public static void main(String[] args) throws ClassNotFoundException {
         /*
         CTRL+ALT+L
@@ -41,25 +43,8 @@ public class Test {
                     /*
                     遍历数组
                      */
-                    int count = 0;
-                    Product carts[] = new Product[3];//创建购物车（用数组模拟）
-                    shoping(sc, inPro, carts, count, readProductExcel, products);
-                    /*
-                    遍历数组
-                     */
-                    shoping(sc, inPro, carts, count++, readProductExcel, products);
-                    /*
-                    遍历数组
-                     */
-
-                    /*
-                    1、查看购物车
-                    （1）购物车是用数组模拟的
-                    （2）就是把数组内的元素一个一个找出来：对数组遍历
-                    2、继续购物
-                    （1）又要显示所有商品
-                     */
-
+                    shoping(sc, inPro, readProductExcel, products);
+                    shoping(sc, inPro, readProductExcel, products);
                     break;
                 } else {
                     System.out.println("登录失败");
@@ -69,7 +54,7 @@ public class Test {
     }
 
     /*购物方法*/
-    public static void shoping(Scanner sc, InputStream inPro, Product carts[], int count, ReadProductExcel readProductExcel, Product[] products) throws ClassNotFoundException {
+    public static void shoping(Scanner sc, InputStream inPro, ReadProductExcel readProductExcel, Product[] products) throws ClassNotFoundException {
         System.out.println("请输入商品ID，把该商品加入购物车：");
         String pId = sc.next();
         ReadProductExcel readProductExcel1 = new ReadProductExcel();
@@ -84,28 +69,36 @@ public class Test {
         }
         System.out.println("查看购物车请按《1》");
         System.out.println("继续购物请按《2》");
+        System.out.println("结账请按《3》");
+        System.out.println("提出请按《4》");
         int choose = sc.nextInt();
-        if (choose == 1) {
-            for (int j = 0; j < carts.length; j++) {
-                if (carts[j] != null) {
-                    System.out.print(carts[j].getId());
-                    System.out.print("\t" + carts[j].getName());
-                    System.out.print("\t\t" + carts[j].getPrice());
-                    System.out.println("\t\t" + carts[j].getDesc());
+        while (true) {
+            if (choose == 1) {
+                for (int j = 0; j < carts.length; j++) {
+                    if (carts[j] != null) {
+                        System.out.print(carts[j].getId());
+                        System.out.print("\t" + carts[j].getName());
+                        System.out.print("\t\t" + carts[j].getPrice());
+                        System.out.println("\t\t" + carts[j].getDesc());
+                    }
                 }
-            }
-        } else if (choose == 2) {
-            readProductExcel = new ReadProductExcel();
-            inPro = null;
-            inPro = Class.forName("Test").getResourceAsStream("/product.xlsx");//  /表示的就是classpath
-            products = readProductExcel.getAllProduct(inPro);
-            for (Product p : products) {
-                System.out.print(p.getId());
-                System.out.print("\t" + p.getName());
-                System.out.print("\t\t" + p.getPrice());
-                System.out.println("\t\t" + p.getDesc());
+            } else if (choose == 2) {
+                readProductExcel = new ReadProductExcel();
+                inPro = null;
+                inPro = Class.forName("Test").getResourceAsStream("/product.xlsx");//  /表示的就是classpath
+                products = readProductExcel.getAllProduct(inPro);
+                for (Product p : products) {
+                    System.out.print(p.getId());
+                    System.out.print("\t" + p.getName());
+                    System.out.print("\t\t" + p.getPrice());
+                    System.out.println("\t\t" + p.getDesc());
+                }
+                break;
+            } else if (choose == 3) {
+                break;
+            } else if (choose == 4) {
+                break;
             }
         }
-
     }
 }
