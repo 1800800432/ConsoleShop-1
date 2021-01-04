@@ -71,16 +71,30 @@ public class Test {
                                     System.out.println("\t\t" + carts[j].getDesc());
                                 }
                             }
+                            System.out.println("查看购物车请按《1》");
+                            System.out.println("继续购物请按《2》");
+                            System.out.println("结账请按《3》");
+                            System.out.println("提出请按《4》");
+                            choose = sc.nextInt();
                         } else if (choose == 2) {
-                            shoping(sc, inPro, readProductExcel, products);
+                            shopping(sc, inPro, readProductExcel, products);
                             choose = sc.nextInt();
                         } else if (choose == 3) {
+                            float Price=0;
+                            for (int j = 0; j < carts.length; j++) {
+                                if (carts[j] != null) {
+                                   Price=Price+carts[j].getPrice();
+                                }
+                            }
+                            System.out.println("总价格："+Price);
                             break;
                         } else if (choose == 4) {
                             break;
                         }
-                        break;
+
                     }
+                        break;
+
             } else{
                 System.out.println("登录失败");
             }
@@ -90,7 +104,7 @@ public class Test {
 }
 
     /*购物方法*/
-    public static void shoping(Scanner sc, InputStream inPro, ReadProductExcel readProductExcel, Product[]
+    public static void shopping(Scanner sc, InputStream inPro, ReadProductExcel readProductExcel, Product[]
             products) throws ClassNotFoundException {
         System.out.println("请输入商品ID，把该商品加入购物车：");
         String pId = sc.next();
@@ -107,6 +121,6 @@ public class Test {
         System.out.println("查看购物车请按《1》");
         System.out.println("继续购物请按《2》");
         System.out.println("结账请按《3》");
-        System.out.println("提出请按《4》");
+        System.out.println("退出请按《4》");
     }
 }
