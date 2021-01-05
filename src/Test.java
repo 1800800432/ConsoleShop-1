@@ -44,22 +44,7 @@ public class Test {
                     /*
                     遍历数组
                      */
-                    System.out.println("请输入商品ID，把该商品加入购物车：");
-                    String pId = sc.next();
-                    ReadProductExcel readProductExcel1 = new ReadProductExcel();
-                    inPro = null;
-                    inPro = Class.forName("Test").getResourceAsStream("/product.xlsx");//  /表示的就是classpath
-                    Product product = readProductExcel1.getProductById(pId, inPro);
-                    if (product != null) {
-                        /*
-                        把商品加入购物车
-                         */
-                        carts[count++] = product;
-                    }
-                    System.out.println("查看购物车请按《1》");
-                    System.out.println("继续购物请按《2》");
-                    System.out.println("结账请按《3》");
-                    System.out.println("提出请按《4》");
+                    shopping(sc, inPro, readProductExcel, products);
                     int choose = sc.nextInt();
                     while (true) {
                         if (choose == 1) {
@@ -94,7 +79,6 @@ public class Test {
 
                     }
                         break;
-
             } else{
                 System.out.println("登录失败");
             }
