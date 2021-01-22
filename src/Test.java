@@ -72,6 +72,11 @@ public class Test {
                                 }
                             }
                             System.out.println("总价格："+Price);
+
+                            Order order = new Order();
+                            order.setUser(users[i]);
+                            order.setProduct(products[i]);
+
                             break;
                         } else if (choose == 4) {
                             break;
