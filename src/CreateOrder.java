@@ -54,6 +54,21 @@ public class CreateOrder {
                     if(j==0) {
                         cell.setCellValue(order.getUser().getUsername());
                         cell.setCellStyle(style);
+                    }else if (j==1){
+                        cell.setCellValue(order.getProducts()[j].getId());
+                        cell.setCellStyle(style);
+                    }else if (j==2){
+                        cell.setCellValue(order.getAmmount());
+                        cell.setCellStyle(style);
+                    }else if (j==3){
+                        cell.setCellValue(order.getTotalPay());
+                        cell.setCellStyle(style);
+                    }else if (j==4){
+                        cell.setCellValue(order.getActualPay());
+                        cell.setCellStyle(style);
+                    }else {
+                        cell.setCellValue("order.getOrderDate()");
+                        cell.setCellStyle(style);
                     }
 				}
 			}
