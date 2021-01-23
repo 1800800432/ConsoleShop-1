@@ -70,11 +70,17 @@ public class Test {
                                 if (carts[j] != null) {
                                    Price=Price+carts[j].getPrice();
                                 }
-                            }
-                            System.out.println("总价格："+Price);
-
+                            }//计算总价
                             Order order = new Order();
-                            order.setUser(users[i]);
+                            order.setUser(users[i]);//订单关联用户
+                            for (int k = 0; k < carts.length; k++) {
+                                if (carts[k] != null) {
+
+                                }
+                            }
+
+                            order.setTotalPay(Price);//订单关联商品价格
+
                             Product orderProducts[]=new Product[count];
 
                             for (int j=0;j<carts.length;j++){

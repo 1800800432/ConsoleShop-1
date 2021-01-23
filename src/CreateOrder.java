@@ -45,9 +45,9 @@ public class CreateOrder {
 
 
             //外循环的次数和购物车的实际长度有关
-            for(int i=1;i<order.getProducts().length;i++){
+            for(int i=0;i<order.getProducts().length;i++){
 				// 在索引0的位置创建行（最顶端的行）
-				HSSFRow row = sheet.createRow((short)i);
+				HSSFRow row = sheet.createRow((short)i+1);
 				for(int j=0;j<6;j++){
 					HSSFCell cell = row.createCell((short)j);
 					// 在单元格中输入一些内容
