@@ -5,7 +5,7 @@ import java.util.Scanner;
 
 public class Test {
     static int count = 0;
-    static Product carts[] = new Product[3];//åˆ›å»ºè´­ç‰©è½¦ï¼ˆç”¨æ•°ç»„æ¨¡æ‹Ÿï¼‰
+    static Product carts[] = new Product[3];//´´½¨¹ºÎï³µ£¨ÓÃÊı×éÄ£Äâ£©
 
     public static void main(String[] args) throws ClassNotFoundException {
         /*
@@ -13,25 +13,25 @@ public class Test {
          */
         boolean bool = true;
         while (bool) {
-            System.out.println("è¯·è¾“å…¥ç”¨æˆ·åï¼š");
+            System.out.println("ÇëÊäÈëÓÃ»§Ãû£º");
             Scanner sc = new Scanner(System.in);
-            String username = sc.next();//é˜»å¡æ–¹æ³•
+            String username = sc.next();//×èÈû·½·¨
 
-            System.out.println("è¯·è¾“å…¥å¯†ç ï¼š");
+            System.out.println("ÇëÊäÈëÃÜÂë£º");
             String password = sc.next();
 
             //File file=new File("C:\\Users\\Administrator\\IdeaProjects\\ConsoleShop\\src\\users.xlsx");
-            InputStream in = Class.forName("Test").getResourceAsStream("/users.xlsx");//  /è¡¨ç¤ºçš„å°±æ˜¯classpath
+            InputStream in = Class.forName("Test").getResourceAsStream("/users.xlsx");//  /±íÊ¾µÄ¾ÍÊÇclasspath
 
-            InputStream inPro = Class.forName("Test").getResourceAsStream("/product.xlsx");//  /è¡¨ç¤ºçš„å°±æ˜¯classpath
+            InputStream inPro = Class.forName("Test").getResourceAsStream("/product.xlsx");//  /±íÊ¾µÄ¾ÍÊÇclasspath
 
-            ReadUserExcel readExcel = new ReadUserExcel();//åˆ›å»ºå¯¹è±¡
+            ReadUserExcel readExcel = new ReadUserExcel();//´´½¨¶ÔÏó
             User users[] = readExcel.readExcel(in);
             for (int i = 0; i < users.length; i++) {
                 if (username.equals(users[i].getUsername()) && password.equals(users[i].getPassword())) {
                     bool = false;
                     /*
-                    æ˜¾ç¤ºå•†å“çš„ä¿¡æ¯
+                    ÏÔÊ¾ÉÌÆ·µÄĞÅÏ¢
                      */
                     ReadProductExcel readProductExcel = new ReadProductExcel();
                     Product products[] = readProductExcel.getAllProduct(inPro);
@@ -42,7 +42,7 @@ public class Test {
                         System.out.println("\t\t" + product.getDesc());
                     }
                     /*
-                    éå†æ•°ç»„
+                    ±éÀúÊı×é
                      */
                     shopping(sc, inPro, readProductExcel, products);
                     int choose = sc.nextInt();
@@ -56,10 +56,10 @@ public class Test {
                                     System.out.println("\t\t" + carts[j].getDesc());
                                 }
                             }
-                            System.out.println("æŸ¥çœ‹è´­ç‰©è½¦è¯·æŒ‰ã€Š1ã€‹");
-                            System.out.println("ç»§ç»­è´­ç‰©è¯·æŒ‰ã€Š2ã€‹");
-                            System.out.println("ç»“è´¦è¯·æŒ‰ã€Š3ã€‹");
-                            System.out.println("æå‡ºè¯·æŒ‰ã€Š4ã€‹");
+                            System.out.println("²é¿´¹ºÎï³µÇë°´¡¶1¡·");
+                            System.out.println("¼ÌĞø¹ºÎïÇë°´¡¶2¡·");
+                            System.out.println("½áÕËÇë°´¡¶3¡·");
+                            System.out.println("Ìá³öÇë°´¡¶4¡·");
                             choose = sc.nextInt();
                         } else if (choose == 2) {
                             shopping(sc, inPro, readProductExcel, products);
@@ -71,12 +71,20 @@ public class Test {
                                    Price=Price+carts[j].getPrice();
                                 }
                             }
-                            System.out.println("æ€»ä»·æ ¼ï¼š"+Price);
+                            System.out.println("×Ü¼Û¸ñ£º"+Price);
 
                             Order order = new Order();
                             order.setUser(users[i]);
-                            order.setProduct(products[i]);
+                            Product orderProducts[]=new Product[count];
 
+                            for (int j=0;j<carts.length;j++){
+                                if(carts[j]!=null) {
+                                    orderProducts[j]=carts[j];
+                                }
+                            }
+                            order.setProducts(orderProducts);
+                            //¹ØÁª¶©µ¥ºÍÉÌÆ·¡¢ÓÃ»§
+                            CreateOrder.createOrder(order);
                             break;
                         } else if (choose == 4) {
                             break;
@@ -85,31 +93,31 @@ public class Test {
                     }
                         break;
             } else{
-                System.out.println("ç™»å½•å¤±è´¥");
+                System.out.println("µÇÂ¼Ê§°Ü");
             }
         }
     }
 
 }
 
-    /*è´­ç‰©æ–¹æ³•*/
+    /*¹ºÎï·½·¨*/
     public static void shopping(Scanner sc, InputStream inPro, ReadProductExcel readProductExcel, Product[]
             products) throws ClassNotFoundException {
-        System.out.println("è¯·è¾“å…¥å•†å“IDï¼ŒæŠŠè¯¥å•†å“åŠ å…¥è´­ç‰©è½¦ï¼š");
+        System.out.println("ÇëÊäÈëÉÌÆ·ID£¬°Ñ¸ÃÉÌÆ·¼ÓÈë¹ºÎï³µ£º");
         String pId = sc.next();
         ReadProductExcel readProductExcel1 = new ReadProductExcel();
         inPro = null;
-        inPro = Class.forName("Test").getResourceAsStream("/product.xlsx");//  /è¡¨ç¤ºçš„å°±æ˜¯classpath
+        inPro = Class.forName("Test").getResourceAsStream("/product.xlsx");//  /±íÊ¾µÄ¾ÍÊÇclasspath
         Product product = readProductExcel1.getProductById(pId, inPro);
         if (product != null) {
                         /*
-                        æŠŠå•†å“åŠ å…¥è´­ç‰©è½¦
+                        °ÑÉÌÆ·¼ÓÈë¹ºÎï³µ
                          */
             carts[count++] = product;
         }
-        System.out.println("æŸ¥çœ‹è´­ç‰©è½¦è¯·æŒ‰ã€Š1ã€‹");
-        System.out.println("ç»§ç»­è´­ç‰©è¯·æŒ‰ã€Š2ã€‹");
-        System.out.println("ç»“è´¦è¯·æŒ‰ã€Š3ã€‹");
-        System.out.println("é€€å‡ºè¯·æŒ‰ã€Š4ã€‹");
+        System.out.println("²é¿´¹ºÎï³µÇë°´¡¶1¡·");
+        System.out.println("¼ÌĞø¹ºÎïÇë°´¡¶2¡·");
+        System.out.println("½áÕËÇë°´¡¶3¡·");
+        System.out.println("ÍË³öÇë°´¡¶4¡·");
     }
 }
