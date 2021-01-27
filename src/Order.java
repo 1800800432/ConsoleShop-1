@@ -1,4 +1,5 @@
 import javax.xml.crypto.Data;
+import java.util.Map;
 
 public class Order {
     /*
@@ -7,7 +8,8 @@ public class Order {
      */
     private User user;
     private Product products[];
-    private int ammount;
+    //使用map结构实现，商品-个数
+    private Map<Integer,Integer> ammount;
     private float totalPay;
     private float actualPay;
     private Data orderDate;
@@ -28,11 +30,11 @@ public class Order {
         this.products = products;
     }
 
-    public int getAmmount() {
+    public Map<Integer, Integer> getAmmount() {
         return ammount;
     }
 
-    public void setAmmount(int ammount) {
+    public void setAmmount(Map<Integer, Integer> ammount) {
         this.ammount = ammount;
     }
 

@@ -1,6 +1,8 @@
 import javafx.scene.control.Tab;
 
 import java.io.InputStream;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Scanner;
 
 public class Test {
@@ -90,6 +92,13 @@ public class Test {
                             }
                             order.setProducts(orderProducts);
                             //关联订单和商品、用户
+
+                            Map<Integer,Integer> ammout=new HashMap<Integer,Integer>();
+                            ammout.put(1111,2);
+                            ammout.put(2222,1);
+
+                            order.setAmmount(ammout);
+
                             CreateOrder.createOrder(order);
                             break;
                         } else if (choose == 4) {

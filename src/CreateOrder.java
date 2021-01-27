@@ -7,6 +7,10 @@ import org.apache.poi.ss.usermodel.FillPatternType;
 import org.apache.poi.ss.usermodel.IndexedColors;
 
 import java.io.FileOutputStream;
+import java.util.Calendar;
+import java.util.Iterator;
+import java.util.Map;
+import java.util.Set;
 
 
 public class CreateOrder {
@@ -50,19 +54,26 @@ public class CreateOrder {
 				HSSFRow row = sheet.createRow((short)i+1);
 				for(int j=0;j<6;j++){
 					HSSFCell cell = row.createCell((short)j);
+					int pid= Integer.parseInt(order.getProducts()[i].getId());
 					// 在单元格中输入一些内容
                     if(j==0) {
                         cell.setCellValue(order.getUser().getUsername());
                     }else if (j==1){
-                        cell.setCellValue(order.getProducts()[i].getId());
+                        cell.setCellValue(pid);
                     }else if (j==2){
-                        cell.setCellValue(order.getAmmount());
+                        /*
+                        遍历Map
+                        */
+                        // 目录（key）内容（value）
+                        Map<Integer,Integer> ammout = order.getAmmount();
+                        int productNum=ammout.get(pid);
+                        cell.setCellValue(productNum);
                     }else if (j==3){
                         cell.setCellValue(order.getTotalPay());
                     }else if (j==4){
                         cell.setCellValue(order.getActualPay());
                     }else {
-                        cell.setCellValue("order.getOrderDate()");
+                        cell.setCellValue((Calendar) order.getOrderDate());
                     }
 				}
 			}
